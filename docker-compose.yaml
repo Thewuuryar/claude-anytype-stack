@@ -1,0 +1,29 @@
+services:
+  claude-agent:
+    build: .
+    image: claude-code-agent:latest
+    container_name: claude-agent
+    restart: unless-stopped
+    volumes:
+      - claude-code-config:/home/agent/.claude
+    environment:
+      - CLAUDE_CONFIG_DIR=/home/agent/.claude
+    depends_on:
+      - anytype
+
+  anytype:
+    image: ghcr.io/anyproto/anytype-cli:latest
+    container_name: anytype-bridge
+    restart: unless-stopped
+    command: serve --listen-address 0.0.0.0:31012
+    volumes:
+      - anytype-data:/root/.anytype
+      - anytype-config:/root/.config/anytype
+
+volumes:
+  claude-code-config:
+    name: claude-code-config
+  anytype-data:
+    name: anytype-data
+  anytype-config:
+    name: anytype-config
