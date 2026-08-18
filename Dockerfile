@@ -1,0 +1,14 @@
+FROM debian:bookworm-slim
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    curl ca-certificates git tmux nodejs npm && \
+    rm -rf /var/lib/apt/lists/*
+
+RUN useradd -m -s /bin/bash agent
+USER agent
+WORKDIR /home/agent
+RUN curl -fsSL https://claude.ai/install.sh | bash
+ENV PATH="/home/agent/.local/bin:${PATH}"
+
+WORKDIR /workspace
+CMD ["sleep", "infinity"]
