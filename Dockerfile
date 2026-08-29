@@ -8,7 +8,7 @@ RUN useradd -m -s /bin/bash agent
 USER agent
 WORKDIR /home/agent
 RUN curl -fsSL https://claude.ai/install.sh | bash
-RUN curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash -s -- --skip-browser --skip-computer-use
+RUN curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash -s -- --skip-browser --skip-computer-use --skip-setup
 ENV PATH="/home/agent/.local/bin:${PATH}"
 WORKDIR /workspace
 CMD ["sleep", "infinity"]
