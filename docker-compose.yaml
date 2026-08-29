@@ -6,11 +6,11 @@ services:
     restart: unless-stopped
     volumes:
       - claude-code-config:/home/agent/.claude
+      - hermes-agent-config:/home/agent/.hermes
     environment:
       - CLAUDE_CONFIG_DIR=/home/agent/.claude
     depends_on:
       - anytype
-
   anytype:
     image: ghcr.io/anyproto/anytype-cli:latest
     container_name: anytype-bridge
@@ -19,10 +19,11 @@ services:
     volumes:
       - anytype-data:/root/.anytype
       - anytype-config:/root/.config/anytype
-
 volumes:
   claude-code-config:
     name: claude-code-config
+  hermes-agent-config:
+    name: hermes-agent-config
   anytype-data:
     name: anytype-data
   anytype-config:
